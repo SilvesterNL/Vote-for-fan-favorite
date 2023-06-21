@@ -5,6 +5,9 @@ $db_user = 'root';
 $db_pass = '';
 $db_data = 'vff';
 
+session_start();
+
+
 $db_connection = new mysqli($db_host, $db_user, $db_pass, $db_data);
 
 if ($db_connection->connect_errno) {
