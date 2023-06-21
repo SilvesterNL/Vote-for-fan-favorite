@@ -1,3 +1,10 @@
+<?php
+require("./assets/require/require.php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +49,6 @@
             <ul class="nav">
               <li><a href="./index.php" class="active">Home</a></li>
               <li><a href="./browse.php">Browse</a></li>
-              <li><a href="./details.php">Details</a></li>
               <li>
                 <a href="./profile.php">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
               </li>
@@ -81,29 +87,38 @@
                   <h4><em>Most Popular</em> Projects Right Now</h4>
                 </div>
                 <div class="row">
-
                   <?php
-                  $db_host = 'localhost';
-                  $db_user = 'root';
-                  $db_pass = '';
-                  $db_data = 'vfff';
+                  $SQL = "SELECT * FROM projects ORDER BY likes DESC LIMIT 4";
 
-                  $db_connection = new mysqli($db_host, $db_user, $db_pass, $db_data);
+                  $query = $db_connection->query($SQL);
 
-                  ?>
+                  if (!$query) {
+                    echo "Error executing query: " . $mysqli->error;
+                    exit;
+                  }
 
-                  <a class='col-lg-3 col-sm-6'>
+                  while ($result = $query->fetch_assoc()) {
+                    $naam = $result['naam'];
+                    $img = $result['projectimg'];
+                    $link = $result['projectlink'];
+                    $acountnaam = $result['acount'];
+                    $likes = $result['likes'];
+                    $downloads = $result['downloads'];
+
+                    $imgBase64 = base64_encode($img);
+
+                    echo "<a href='$link' class='col-lg-3 col-sm-6'>
                     <div class='item'>
-                      <img src='' alt='' />
-                      <h4><br /><span>Battle S</span></h4>
-                      <ul>
-                        <li><i class='fa fa-star'></i> 4.8</li>
-                        <li><i class='fa fa-download'></i> 2.3M</li>
-                      </ul>
+                    <img src='data:image/png  ;base64,$imgBase64' alt=''/>
+                    <h4>$naam<br /><span>$acountnaam</span></h4>
+                    <ul>
+                    <li><i class='fa fa-heart'></i> $likes</li>
+                    <li><i class='fa fa-download'></i> $downloads</li>
+                    </ul>
                     </div>
-                  </a>
-
-
+                    </a>";
+                  }
+                  ?>
                   <div class="col-lg-12">
                     <div class="main-button">
                       <a href="browse.php">Discover Popular</a>
@@ -121,29 +136,53 @@
               <div class="heading-section">
                 <h4><em>Your Project</em> Library</h4>
               </div>
-              <div class="item">
+
+              <?php
+              $SQL = "SELECT * FROM projects LIMIT 4";
+
+              $query = $db_connection->query($SQL);
+
+              if (!$query) {
+                echo "Error executing query: " . $mysqli->error;
+                exit;
+              }
+
+              while ($result = $query->fetch_assoc()) {
+                $naam = $result['naam'];
+                $img = $result['projectimg'];
+                $link = $result['projectlink'];
+                $acountnaam = $result['acount'];
+                $likes = $result['likes'];
+                $downloads = $result['downloads'];
+                $datum = $result['datum'];
+
+                $imgBase64 = base64_encode($img);
+
+                echo "<div class='item'>
                 <ul>
                   <li>
-                    <img src="assets/images/game-01.jpg" alt="" class="templatemo-item" />
+                    <img src='data:image/png  ;base64,$imgBase64' alt='' class='templatemo-item' />
                   </li>
                   <li>
-                    <h4>Dota 2</h4>
-                    <span>Sandbox</span>
+                    <h4>$naam</h4>
+                    <a href='./profile.php?$acountnaam'><span>$acountnaam</span></a>
                   </li>
                   <li>
                     <h4>Date Added</h4>
-                    <span>24/08/2036</span>
+                    <span>$datum</span>
                   </li>
                   <li>
-                    <h4>Votes</h4>
-                    <span>3.4K</span>
+                    <h4>Likes</h4>
+                    <span>$likes</span>
                   </li>
                 </ul>
-              </div>
+              </div>";
+              }
+              ?>
             </div>
             <div class="col-lg-12">
               <div class="main-button">
-                <a href="profile.php">View Your Library</a>
+                <a href="profile.php?<?= $acountnaam ?>">View Your Library</a>
               </div>
             </div>
           </div>
@@ -158,7 +197,7 @@
       <div class="row">
         <div class="col-lg-12">
           <p>
-            Copyright © 2036 <a href="#">Upper</a> Company. All rights
+            Copyright © 2023 <a href="#">Upper</a> Company. All rights
             reserved.
           </p>
         </div>
