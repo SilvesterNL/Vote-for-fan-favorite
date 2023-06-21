@@ -57,7 +57,6 @@
             <ul class="nav">
               <li><a href="index.php">Home</a></li>
               <li><a href="browse.php">Browse</a></li>
-              <li><a href="details.php">Details</a></li>
               <li>
                 <a href="profile.php" class="active">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
               </li>
@@ -170,7 +169,7 @@
       <div class="row">
         <div class="col-lg-12">
           <p>
-            Copyright © 2036 <a href="#">Upper</a> Company. All rights
+            Copyright © 2023 <a href="#">Upper</a> Company. All rights
             reserved.
           </p>
         </div>
