@@ -99,7 +99,7 @@ if (!isset($_SESSION['loggedin'])) {
                   <?php
                   $SQL = "SELECT * FROM projects ORDER BY likes DESC LIMIT 4";
 
-                  $query = $db_connection->query($SQL);
+                  $query = $con->query($SQL);
 
                   if (!$query) {
                     echo "Error executing query: " . $mysqli->error;
