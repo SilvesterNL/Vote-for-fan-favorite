@@ -72,7 +72,7 @@ require("./assets/require/require.php");
                     <?php
                     $SQL = "SELECT * FROM projects ORDER BY downloads DESC LIMIT 4";
 
-                    $query = $db_connection->query($SQL);
+                    $query = $con->query($SQL);
 
                     if (!$query) {
                       echo "Error executing query: " . $mysqli->error;
@@ -114,7 +114,7 @@ require("./assets/require/require.php");
                   <?php
                   $SQL = "SELECT * FROM projects ORDER BY likes DESC LIMIT 3";
 
-                  $query = $db_connection->query($SQL);
+                  $query = $con->query($SQL);
 
                   if (!$query) {
                     echo "Error executing query: " . $mysqli->error;

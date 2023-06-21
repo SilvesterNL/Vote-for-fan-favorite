@@ -1,10 +1,40 @@
 <?php
 
-if ($_POST['type'] == "create") {
-  $insert = $con->query("INSERT INTO users (username,email,password) VALUES('".$con->real_escape_string($_POST['username'])."','".$con->real_escape_string($_POST['email'])."','".password_hash($con->real_escape_string($_POST['password']),PASSWORD_BCRYPT)."')");
-  if ($insert) {
-      $respone = true;
-  }}
+require("./assets/require/require.php");
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  if (trim($_POST['username']) == NULL) {
+      Header("Location:login.php?error");
+  }
+  if (trim($_POST['password']) == NULL) {
+      Header("Location:login.php?error");
+  }        
+  $query = $con->query("SELECT * FROM users WHERE username = '".$con->real_escape_string($_POST['username'])."'");
+
+  if ($query->num_rows == 1) {
+      $row = $query->fetch_assoc();
+      if (password_verify($_POST['password'],$row['password'])) {
+          $_SESSION['loggedin'] = true;
+          $_SESSION['username'] = $_POST['username'];
+          $_SESSION['email'] = $row['email'];
+          $_SESSION['id'] = $row['id'];
+          
+          if ($_SERVER['HTTP_REFFER'] != "") {
+              header('Location: ' . $_SERVER['HTTP_REFERER']);
+          } else {
+              Header("Location: profile.php");
+              header('Cache-Control: no cache'); //no cache
+              session_cache_limiter('private_no_expire'); // works
+              session_start();
+
+          }
+      } else {
+          Header("Location: login.php?error");
+      }
+  } else {
+      Header("Location: login.php?error");
+  }
+}
 
 ?>
 
@@ -25,7 +55,8 @@ if ($_POST['type'] == "create") {
 <body>
 
 <div class="centered-container">
-<form class="form">
+<form class="form" method="post">
+  <i
     <p id="heading">Login</p>
     <div class="field">
     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
