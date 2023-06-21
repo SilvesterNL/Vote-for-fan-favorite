@@ -3,6 +3,11 @@ require("./assets/require/require.php");
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+if (!isset($_SESSION['loggedin'])) {
+  $_SESSION['loggedin'] = false;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +55,11 @@ error_reporting(E_ALL);
               <li><a href="./index.php" class="active">Home</a></li>
               <li><a href="./browse.php">Browse</a></li>
               <li>
+                <?php if ($_SESSION['loggedin'] == true) { ?>
                 <a href="./profile.php">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
+                <?php } else { ?>
+                <a href="./login.php">Login <img style="filter: brightness(0) invert(1);" src="assets/images/login-header.png" alt="" /></a>
+                <?php } ?>
               </li>
             </ul>
             <a class="menu-trigger">
