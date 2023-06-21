@@ -115,8 +115,7 @@ html {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("/Challengeweek/vfff/assets/images/456536.jpg") no-repeat
-    center center fixed;
+  background: url("../images/456536.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
