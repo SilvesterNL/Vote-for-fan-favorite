@@ -1,3 +1,15 @@
+<?php
+
+if ($_POST['type'] == "create") {
+  $insert = $con->query("INSERT INTO users (username,email,password) VALUES('".$con->real_escape_string($_POST['username'])."','".$con->real_escape_string($_POST['email'])."','".password_hash($con->real_escape_string($_POST['password']),PASSWORD_BCRYPT)."')");
+  if ($insert) {
+      $respone = true;
+  }}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
