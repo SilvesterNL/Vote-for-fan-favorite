@@ -1778,3 +1778,7 @@ body {
     width: 16%;
   }
 }
+
+.loginmsg {
+  color: white;
+}

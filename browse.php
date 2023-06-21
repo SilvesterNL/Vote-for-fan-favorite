@@ -47,7 +47,11 @@ require("./assets/require/require.php");
               <li><a href="index.php">Home</a></li>
               <li><a href="browse.php" class="active">Browse</a></li>
               <li>
-                <a href="profile.php">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
+                <?php if ($_SESSION['loggedin'] == true) { ?>
+                  <a href="./profile.php">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
+                <?php } else { ?>
+                  <a href="./login.php">Login <img style="filter: brightness(0) invert(1);" src="assets/images/login-header.png" alt="" /></a>
+                <?php } ?>
               </li>
             </ul>
             <a class="menu-trigger">

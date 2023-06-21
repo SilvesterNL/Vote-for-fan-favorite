@@ -56,9 +56,9 @@ if (!isset($_SESSION['loggedin'])) {
               <li><a href="./browse.php">Browse</a></li>
               <li>
                 <?php if ($_SESSION['loggedin'] == true) { ?>
-                <a href="./profile.php">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
+                  <a href="./profile.php">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
                 <?php } else { ?>
-                <a href="./login.php">Login <img style="filter: brightness(0) invert(1);" src="assets/images/login-header.png" alt="" /></a>
+                  <a href="./login.php">Login <img style="filter: brightness(0) invert(1);" src="assets/images/login-header.png" alt="" /></a>
                 <?php } ?>
               </li>
             </ul>
@@ -145,29 +145,29 @@ if (!isset($_SESSION['loggedin'])) {
               <div class="heading-section">
                 <h4><em>Your Project</em> Library</h4>
               </div>
+              <?php if ($_SESSION['loggedin'] == true) { ?>
+                <?php
+                $SQL = "SELECT * FROM projects LIMIT 4";
 
-              <?php
-              $SQL = "SELECT * FROM projects LIMIT 4";
+                $query = $db_connection->query($SQL);
 
-              $query = $db_connection->query($SQL);
+                if (!$query) {
+                  echo "Error executing query: " . $mysqli->error;
+                  exit;
+                }
 
-              if (!$query) {
-                echo "Error executing query: " . $mysqli->error;
-                exit;
-              }
+                while ($result = $query->fetch_assoc()) {
+                  $naam = $result['naam'];
+                  $img = $result['projectimg'];
+                  $link = $result['projectlink'];
+                  $acountnaam = $result['acount'];
+                  $likes = $result['likes'];
+                  $downloads = $result['downloads'];
+                  $datum = $result['datum'];
 
-              while ($result = $query->fetch_assoc()) {
-                $naam = $result['naam'];
-                $img = $result['projectimg'];
-                $link = $result['projectlink'];
-                $acountnaam = $result['acount'];
-                $likes = $result['likes'];
-                $downloads = $result['downloads'];
-                $datum = $result['datum'];
+                  $imgBase64 = base64_encode($img);
 
-                $imgBase64 = base64_encode($img);
-
-                echo "<div class='item'>
+                  echo "<div class='item'>
                 <ul>
                   <li>
                     <img src='data:image/png  ;base64,$imgBase64' alt='' class='templatemo-item' />
@@ -186,14 +186,21 @@ if (!isset($_SESSION['loggedin'])) {
                   </li>
                 </ul>
               </div>";
-              }
-              ?>
+                }
+                ?>
+              <?php } else { ?>
+                <?= "<p class='loginmsg'>You need to login to see your projects --- <a href='./login.php'>Login -></a></p>" ?>
+              <?php } ?>
+
             </div>
-            <div class="col-lg-12">
-              <div class="main-button">
-                <a href="profile.php?<?= $acountnaam ?>">View Your Library</a>
+            <?php if ($_SESSION['loggedin'] == true) { ?>
+              <div class="col-lg-12">
+                <div class="main-button">
+                  <a href="profile.php?<?= $acountnaam ?>">View Your Library</a>
+                </div>
               </div>
-            </div>
+            <?php } else {
+            } ?>
           </div>
           <!-- ***** Gaming Library End ***** -->
         </div>

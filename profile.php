@@ -87,38 +87,44 @@
                   </div>
                   <div class="col-lg-4 align-self-center">
                     <div class="main-info header-text">
-                      <span>Offline</span>
                       <h4>Alan Smithee</h4>
                       <p></p>
                       <div class="main-border-button">
-                        <a href="#">Upload Project</a>
+                        <a id="open-form" href="#">Upload Project</a>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-4 align-self-center">
                     <ul>
-                      <li>Projects Liked <span>16</span></li>
                       <li>Uploaded Projects <span>None</span></li>
                     </ul>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-container">
-                    <form>
+                  <div class="form-container hidden">
+                    <form method="post">
                       <div class="inputbox">
-                        <input required="required" type="text">
+                        <input required="required" type="text" name="name">
                         <span>Project Name</span>
                         <i></i>
                       </div>
                       <div class="inputbox">
-                        <input required="required" type="text">
+                        <input required="required" type="text" name="link">
                         <span>Project Link</span>
                         <i></i>
                       </div>
-                      <label class="custom-file-upload">
-                        <input type="file" />
-                        Custom Upload
+                      <label for="file-upload" class="custom-file-upload" id="file">
+                        <i class="fas fa-cloud-upload-alt"></i> Choose File
                       </label>
+                      <input id="file-upload" type="file">
+                      <button name='submit'>
+                        <span class="circle1"></span>
+                        <span class="circle2"></span>
+                        <span class="circle3"></span>
+                        <span class="circle4"></span>
+                        <span class="circle5"></span>
+                        <span class="text">Submit</span>
+                      </button>
                     </form>
                   </div>
                 </div>
@@ -204,31 +210,23 @@
   <script src="assets/js/popup.js"></script>
   <script src="assets/js/custom.js"></script>
   <script>
-    (async () => {
-      async function takeScreenshot(url) {
-        const newWindow = window.open(url, '_blank');
-
-        // Wait for the window to load and handle errors
-        await new Promise((resolve, reject) => {
-          newWindow.addEventListener('load', resolve);
-          newWindow.addEventListener('error', reject);
-          newWindow.addEventListener('abort', reject);
-        });
-
-        const screenshotData = await newWindow.screenshot();
-
-        const screenshotWindow = window.open();
-        screenshotWindow.document.write(`<img src="${screenshotData}">`);
+    const formcontainer = document.querySelector('.form-container');
+    const openform = document.getElementById('open-form');
+    openform.addEventListener('click', () => {
+      if (formcontainer.classList.contains('hidden')) {
+        formcontainer.classList.remove('hidden');
+      } else {
+        formcontainer.classList.add('hidden');
       }
+    })
 
-      const websiteURL = 'https://pornhub.com';
-      try {
-        await takeScreenshot(websiteURL);
-        console.log('Screenshot captured successfully!');
-      } catch (error) {
-        console.error('Error:', error);
+    let fileinv = document.getElementById('file');
+    document.getElementById('file-upload').addEventListener('change', function() {
+      let file = this.files[0];
+      if (file) {
+        fileinv.textContent = ('File uploaded: ' + file.name);
       }
-    })();
+    });
   </script>
 
 </body>
