@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -203,33 +204,7 @@
   <script src="assets/js/tabs.js"></script>
   <script src="assets/js/popup.js"></script>
   <script src="assets/js/custom.js"></script>
-  <script>
-    (async () => {
-      async function takeScreenshot(url) {
-        const newWindow = window.open(url, '_blank');
 
-        // Wait for the window to load and handle errors
-        await new Promise((resolve, reject) => {
-          newWindow.addEventListener('load', resolve);
-          newWindow.addEventListener('error', reject);
-          newWindow.addEventListener('abort', reject);
-        });
-
-        const screenshotData = await newWindow.screenshot();
-
-        const screenshotWindow = window.open();
-        screenshotWindow.document.write(`<img src="${screenshotData}">`);
-      }
-
-      const websiteURL = 'https://pornhub.com';
-      try {
-        await takeScreenshot(websiteURL);
-        console.log('Screenshot captured successfully!');
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    })();
-  </script>
 
 </body>
 
