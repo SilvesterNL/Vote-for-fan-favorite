@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="assets/css/templatemo-Cyborg-gaming.css" />
   <link rel="stylesheet" href="assets/css/owl.css" />
   <link rel="stylesheet" href="assets/css/animate.css" />
+  <link rel="stylesheet" href="./assets/css/profile.css ">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 </head>
 
@@ -102,7 +103,27 @@
                   </div>
                 </div>
                 <div class="row">
-                  <di v class="col-lg-12">
+                  <div class="form-container">
+                    <form>
+                      <div class="inputbox">
+                        <input required="required" type="text">
+                        <span>Project Name</span>
+                        <i></i>
+                      </div>
+                      <div class="inputbox">
+                        <input required="required" type="text">
+                        <span>Project Link</span>
+                        <i></i>
+                      </div>
+                      <label class="custom-file-upload">
+                        <input type="file" />
+                        Custom Upload
+                      </label>
+                    </form>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
                     <div class="clips">
                       <div class="row">
                         <div class="col-lg-3 col-sm-6">
@@ -117,51 +138,46 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-12">
-                          <div class="main-button">
-                            <a href="#">Load More Projects</a>
-                          </div>
-                        </div>
                       </div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- ***** Banner End ***** -->
+          <!-- ***** Banner End ***** -->
 
-        <!-- ***** Gaming Library Start ***** -->
-        <div class="gaming-library profile-library">
-          <div class="col-lg-12">
-            <div class="heading-section">
-              <h4><em>Your Project</em> Library</h4>
-            </div>
-            <div class="item">
-              <ul>
-                <li>
-                  <img src="assets/images/game-01.jpg" alt="" class="templatemo-item" />
-                </li>
-                <li>
-                  <h4>Dota 2</h4>
-                  <span>Sandbox</span>
-                </li>
-                <li>
-                  <h4>Date Added</h4>
-                  <span>24/08/2036</span>
-                </li>
-                <li>
-                  <h4>Votes</h4>
-                  <span>3.4K</span>
-                </li>
-              </ul>
+          <!-- ***** Gaming Library Start ***** -->
+          <div class="gaming-library profile-library">
+            <div class="col-lg-12">
+              <div class="heading-section">
+                <h4><em>Your Project</em> Library</h4>
+              </div>
+              <div class="item">
+                <ul>
+                  <li>
+                    <img src="assets/images/game-01.jpg" alt="" class="templatemo-item" />
+                  </li>
+                  <li>
+                    <h4>Dota 2</h4>
+                    <span>Sandbox</span>
+                  </li>
+                  <li>
+                    <h4>Date Added</h4>
+                    <span>24/08/2036</span>
+                  </li>
+                  <li>
+                    <h4>Votes</h4>
+                    <span>3.4K</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
+          <!-- ***** Gaming Library End ***** -->
         </div>
-        <!-- ***** Gaming Library End ***** -->
       </div>
     </div>
-  </div>
   </div>
 
   <footer>
