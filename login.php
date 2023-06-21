@@ -68,9 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       </div>
       <div class="btn">
         <button class="button1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-        <a style='text-decoration: none; color: white;'><button href='signup.php' class="button2">Sign Up</button></a>
+        <a style='text-decoration: none; color: white;' href='signup.php' class="button2">Sign Up<a>
       </div>
-      <button class="button3">Forgot Password</button>
     </form>
   </div>
 

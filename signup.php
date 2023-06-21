@@ -62,7 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <div class="btn">
         <button name="submit" class="button1" style="width:400px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Account aanmaken&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
       </div>
-      <button class="button3"><a style="text-decoration: none; color: white;" href="./login.php">Terug naar login</a></button>
+      <a class="button3" style="text-decoration: none; color: white;" href="./login.php" T>
+        Terug naar login
+      </a>
     </form>
   </div>
 
