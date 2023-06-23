@@ -48,7 +48,7 @@ require("./assets/require/require.php");
               <li><a href="browse.php" class="active">Browse</a></li>
               <li>
                 <?php if ($_SESSION['loggedin'] == true) { ?>
-                  <a href="./profile.php">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
+                  <a href="./profile.php">Profile <img src="assets/images/profile.jpg" alt="" /></a>
                 <?php } else { ?>
                   <a href="./login.php">Login <img style="filter: brightness(0) invert(1);" src="assets/images/login-header.png" alt="" /></a>
                 <?php } ?>
@@ -75,7 +75,6 @@ require("./assets/require/require.php");
                   <div class="row">
                     <?php
                     $SQL = "SELECT * FROM projects ORDER BY downloads DESC LIMIT 4";
-
                     $query = $con->query($SQL);
 
                     if (!$query) {
@@ -83,28 +82,33 @@ require("./assets/require/require.php");
                       exit;
                     }
 
-                    while ($result = $query->fetch_assoc()) {
-                      $naam = $result['naam'];
-                      $img = $result['projectimg'];
-                      $link = $result['projectlink'];
-                      $acountnaam = $result['acount'];
-                      $likes = $result['likes'];
-                      $downloads = $result['downloads'];
+                    if ($query->num_rows == 0) {
+                      echo "<p>No projects found.</p>";
+                    } else {
+                      while ($result = $query->fetch_assoc()) {
+                        $naam = $result['naam'];
+                        $img = $result['projectimg'];
+                        $link = $result['projectlink'];
+                        $acountnaam = $result['Userid'];
+                        $likes = $result['likes'];
+                        $downloads = $result['downloads'];
 
-                      $imgBase64 = base64_encode($img);
+                        $imgBase64 = base64_encode($img);
 
-                      echo "<a href='$link' class='col-lg-3 col-sm-6'>
-                    <div class='item'>
-                    <img src='data:image/png  ;base64,$imgBase64' alt=''/>
-                    <h4>$naam<br /><span>$acountnaam</span></h4>
-                    <ul>
-                    <li><i class='fa fa-heart'></i> $likes</li>
-                    <li><i class='fa fa-download'></i> $downloads</li>
-                    </ul>
-                    </div>
-                    </a>";
+                        echo "<a href='$link' class='col-lg-3 col-sm-6'>
+                                <div class='item'>
+                                  <img src='data:image/png;base64,$imgBase64' alt=''/>
+                                  <h4>$naam<br /><span>$acountnaam</span></h4>
+                                  <ul>
+                                    <li><i class='fa fa-heart' style='color: #ff00a6;'></i> $likes</li>
+                                    <li><i class='fa fa-download'></i> $downloads</li>
+                                  </ul>
+                                </div>
+                              </a>";
+                      }
                     }
                     ?>
+
                   </div>
                 </div>
               </div>
@@ -117,7 +121,6 @@ require("./assets/require/require.php");
                 <ul>
                   <?php
                   $SQL = "SELECT * FROM projects ORDER BY likes DESC LIMIT 3";
-
                   $query = $con->query($SQL);
 
                   if (!$query) {
@@ -125,30 +128,33 @@ require("./assets/require/require.php");
                     exit;
                   }
 
-                  while ($result = $query->fetch_assoc()) {
-                    $naam = $result['naam'];
-                    $img = $result['projectimg'];
-                    $link = $result['projectlink'];
-                    $acountnaam = $result['acount'];
-                    $likes = $result['likes'];
-                    $downloads = $result['downloads'];
+                  if ($query->num_rows == 0) {
+                    echo "<p>No projects available.</p>";
+                  } else {
+                    while ($result = $query->fetch_assoc()) {
+                      $naam = $result['naam'];
+                      $img = $result['projectimg'];
+                      $link = $result['projectlink'];
+                      $acountnaam = $result['Userid'];
+                      $likes = $result['likes'];
+                      $downloads = $result['downloads'];
 
-                    $imgBase64 = base64_encode($img);
+                      $imgBase64 = base64_encode($img);
 
-                    echo "<li>
-                    <img src='data:image/png  ;base64,$imgBase64' alt='' class='templatemo-item' />
-                    <h4>$naam</h4>
-                    <h6>$acountnaam</h6>
-                    <span><i class='fa fa-heart' style='color: #ff00a6'></i>
-                      $likes</span>
-                    <span><i class='fa fa-download' style='color: #ff00a6'></i>
-                      $downloads</span>
-                    <div class='download'>
-                      <a href='$link'><i class='fa fa-download'></i></a>
-                    </div>
-                  </li>";
+                      echo "<li>
+                              <img src='data:image/png;base64,$imgBase64' alt='' class='templatemo-item' />
+                              <h4>$naam</h4>
+                              <h6>$acountnaam</h6>
+                              <span><i class='fa fa-heart' style='color: #ff00a6'></i>$likes</span>
+                              <span><i class='fa fa-download' style='color: #ff00a6'></i>$downloads</span>
+                              <div class='download'>
+                                <a href='$link'><i class='fa fa-download'></i></a>
+                              </div>
+                            </li>";
+                    }
                   }
                   ?>
+
 
                 </ul>
                 <div class="text-button">

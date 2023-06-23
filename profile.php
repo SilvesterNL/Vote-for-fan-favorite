@@ -9,10 +9,13 @@ if ($_SESSION['loggedin'] == false) {
   $sql = "SELECT * FROM users WHERE username = '$username'";
   $query = $con->query($sql);
   $result = $query->fetch_assoc();
-  $naam = $result['$username'];
-  $naam = $result['$username'];
-  $naam = $result['$username'];
+  $naam = $result['username'];
+  $naam = $result['username'];
+  $naam = $result['username'];
 }
+
+$projectcount = 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +72,7 @@ if ($_SESSION['loggedin'] == false) {
               <li><a href="index.php">Home</a></li>
               <li><a href="browse.php">Browse</a></li>
               <li>
-                <a href="profile.php" class="active">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
+                <a href="profile.php" class="active">Profile <img src="assets/images/profile.jpg" alt="" /></a>
               </li>
             </ul>
             <a class="menu-trigger">
@@ -93,21 +96,18 @@ if ($_SESSION['loggedin'] == false) {
               <div class="main-profile">
                 <div class="row">
                   <div class="col-lg-4">
-                    <img src="assets/images/profile.jpg" alt="" style="border-radius: 23px" />
+                    <img src="assets/images/logoupper.png" alt="" style="border-radius: 23px" />
                   </div>
                   <div class="col-lg-4 align-self-center">
                     <div class="main-info header-text">
-                      <h4>Alan Smithee</h4>
+                      <h4>
+                        <?= $naam ?>
+                      </h4>
                       <p></p>
                       <div class="main-border-button">
                         <a id="open-form" href="#">Upload Project</a>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-4 align-self-center">
-                    <ul>
-                      <li>Uploaded Projects <span>None</span></li>
-                    </ul>
                   </div>
                 </div>
                 <div class="row">
@@ -138,62 +138,136 @@ if ($_SESSION['loggedin'] == false) {
                     </form>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="clips">
-                      <div class="row">
-                        <div class="col-lg-3 col-sm-6">
-                          <div class="item">
-                            <div class="thumb">
-                              <img src="assets/images/clip-04.jpg" alt="" style="border-radius: 23px" />
-                              <a href="https://www.youtube.com/watch?v=r1b03uKWk_M" target="_blank"><i class="fa fa-play"></i></a>
+                <?php
+                if ($_SESSION['loggedin'] == false) {
+                  header("Location: index.php");
+                } else {
+                  $sql = "SELECT * FROM projects WHERE Userid = '$username' ORDER BY downloads DESC LIMIT 4";
+                  $query = $con->query($sql);
+                  $foundProjects = false; // Flag variable to track if projects were found
+
+                  while ($result = $query->fetch_assoc()) {
+                    $naam = $result['naam'];
+                    $img = $result['projectimg'];
+                    $link = $result['projectlink'];
+                    $acountnaam = $result['Userid'];
+                    $likes = $result['likes'];
+                    $downloads = $result['downloads'];
+
+                    $imgBase64 = base64_encode($img);
+
+                    echo "<a href='$link' class='row'>
+                            <div class='col-lg-12'>
+                              <div class='clips'>
+                                <div class='row'>
+                                  <div class='col-lg-3 col-sm-6'>
+                                    <div class='item'>
+                                      <div class='thumb'>
+                                        <img src='data:image/png;base64,$imgBase64' alt='' style='border-radius: 23px' />
+                                      </div>
+                                      <div class='down-content'>
+                                        <h4>$naam</h4>
+                                        <span><i class='fa fa-eye'></i> $likes</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                            <div class="down-content">
-                              <h4>Fourth Clip</h4>
-                              <span><i class="fa fa-eye"></i> 91</span>
+                          </a>";
+
+                    $foundProjects = true; // Set flag to true since projects were found
+                  }
+
+                  if (!$foundProjects) {
+                    echo "<a href='$link' class='col-lg-12'>
+                              <div class='clips'>
+                                <div class='row'>
+                                  <div class='col-lg-12'>
+                                    <p>No projects uploaded yet.</p>
+                                  </div>
+                                </div>
+                              </div>
+                          </a>";
+                  }
+                }
+                ?>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ***** Banner End ***** -->
+
+        <!-- ***** Gaming Library Start ***** -->
+        <div class="gaming-library profile-library">
+          <div class="col-lg-12">
+            <div class="heading-section">
+              <h4><em>Your Project</em> Library</h4>
+            </div>
+            <?php
+            if ($_SESSION['loggedin'] == false) {
+              header("Location: index.php");
+            } else {
+              $sql = "SELECT * FROM projects WHERE Userid = '$username'";
+              $query = $con->query($sql);
+              $projectCount = $query->num_rows; // Get the number of projects
+              $foundProjects = false; // Flag variable to track if projects were found
+
+              while ($result = $query->fetch_assoc()) {
+                $naam = $result['naam'];
+                $img = $result['projectimg'];
+                $link = $result['projectlink'];
+                $acountnaam = $result['Userid'];
+                $likes = $result['likes'];
+                $downloads = $result['downloads'];
+                $datum = $result['datum'];
+
+                $foundProjects = true; // Set flag to true since projects were found
+
+                $imgBase64 = base64_encode($img);
+
+                echo "<div class='item'>
+                          <ul>
+                            <li>
+                              <img src='data:image/png;base64,$imgBase64' alt='' class='templatemo-item' />
+                            </li>
+                            <li>
+                              <h4>$naam</h4>
+                              <span>$acountnaam</span>
+                            </li>
+                            <li>
+                              <h4>Date Added</h4>
+                              <span>$datum</span>
+                            </li>
+                            <li>
+                              <h4>Likes</h4>
+                              <span>$likes</span>
+                            </li>
+                          </ul>
+                        </div>";
+              }
+
+              if (!$foundProjects) {
+                echo "<div class='col-lg-12'>
+                          <div class='clips'>
+                            <div class='row'>
+                              <div class='col-lg-12'>
+                                <p>No projects uploaded yet.</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** Banner End ***** -->
+                        </div>";
+              }
+            }
+            ?>
 
-          <!-- ***** Gaming Library Start ***** -->
-          <div class="gaming-library profile-library">
-            <div class="col-lg-12">
-              <div class="heading-section">
-                <h4><em>Your Project</em> Library</h4>
-              </div>
-              <div class="item">
-                <ul>
-                  <li>
-                    <img src="assets/images/game-01.jpg" alt="" class="templatemo-item" />
-                  </li>
-                  <li>
-                    <h4>Dota 2</h4>
-                    <span>Sandbox</span>
-                  </li>
-                  <li>
-                    <h4>Date Added</h4>
-                    <span>24/08/2036</span>
-                  </li>
-                  <li>
-                    <h4>Votes</h4>
-                    <span>3.4K</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </div>
-          <!-- ***** Gaming Library End ***** -->
         </div>
+        <!-- ***** Gaming Library End ***** -->
       </div>
     </div>
+  </div>
   </div>
 
   <footer>

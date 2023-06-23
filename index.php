@@ -56,7 +56,7 @@ if (!isset($_SESSION['loggedin'])) {
               <li><a href="./browse.php">Browse</a></li>
               <li>
                 <?php if ($_SESSION['loggedin'] == true) { ?>
-                  <a href="./profile.php">Profile <img src="assets/images/profile-header.jpg" alt="" /></a>
+                  <a href="./profile.php">Profile <img src="assets/images/profile.jpg" alt="" /></a>
                 <?php } else { ?>
                   <a href="./login.php">Login <img style="filter: brightness(0) invert(1);" src="assets/images/login-header.png" alt="" /></a>
                 <?php } ?>
@@ -98,7 +98,6 @@ if (!isset($_SESSION['loggedin'])) {
                 <div class="row">
                   <?php
                   $SQL = "SELECT * FROM projects ORDER BY likes DESC LIMIT 4";
-
                   $query = $con->query($SQL);
 
                   if (!$query) {
@@ -106,28 +105,33 @@ if (!isset($_SESSION['loggedin'])) {
                     exit;
                   }
 
-                  while ($result = $query->fetch_assoc()) {
-                    $naam = $result['naam'];
-                    $img = $result['projectimg'];
-                    $link = $result['projectlink'];
-                    $acountnaam = $result['acount'];
-                    $likes = $result['likes'];
-                    $downloads = $result['downloads'];
+                  if ($query->num_rows == 0) {
+                    echo "<p>No projects yet.</p>";
+                  } else {
+                    while ($result = $query->fetch_assoc()) {
+                      $naam = $result['naam'];
+                      $img = $result['projectimg'];
+                      $link = $result['projectlink'];
+                      $acountnaam = $result['Userid'];
+                      $likes = $result['likes'];
+                      $downloads = $result['downloads'];
 
-                    $imgBase64 = base64_encode($img);
+                      $imgBase64 = base64_encode($img);
 
-                    echo "<a href='$link' class='col-lg-3 col-sm-6'>
-                    <div class='item'>
-                    <img src='data:image/png  ;base64,$imgBase64' alt=''/>
-                    <h4>$naam<br /><span>$acountnaam</span></h4>
-                    <ul>
-                    <li><i class='fa fa-heart'></i> $likes</li>
-                    <li><i class='fa fa-download'></i> $downloads</li>
-                    </ul>
-                    </div>
-                    </a>";
+                      echo "<a href='$link' class='col-lg-3 col-sm-6'>
+                              <div class='item'>
+                                <img src='data:image/png;base64,$imgBase64' alt=''/>
+                                <h4>$naam<br /><span>$acountnaam</span></h4>
+                                <ul>
+                                  <li><i class='fa fa-heart'></i> $likes</li>
+                                  <li><i class='fa fa-download'></i> $downloads</li>
+                                </ul>
+                              </div>
+                            </a>";
+                    }
                   }
                   ?>
+
                   <div class="col-lg-12">
                     <div class="main-button">
                       <a href="browse.php">Discover Popular</a>
@@ -145,52 +149,56 @@ if (!isset($_SESSION['loggedin'])) {
               <div class="heading-section">
                 <h4><em>Your Project</em> Library</h4>
               </div>
-              <?php if ($_SESSION['loggedin'] == true) { ?>
-                <?php
-                $SQL = "SELECT * FROM projects LIMIT 4";
-
-                $query = $db_connection->query($SQL);
+              <?php
+              if ($_SESSION['loggedin'] == true) {
+                $username = $_SESSION['username'];
+                $SQL = "SELECT * FROM projects WHERE 'Userid' = '$username' LIMIT 4";
+                $query = $con->query($SQL);
 
                 if (!$query) {
                   echo "Error executing query: " . $mysqli->error;
                   exit;
                 }
 
-                while ($result = $query->fetch_assoc()) {
-                  $naam = $result['naam'];
-                  $img = $result['projectimg'];
-                  $link = $result['projectlink'];
-                  $acountnaam = $result['acount'];
-                  $likes = $result['likes'];
-                  $downloads = $result['downloads'];
-                  $datum = $result['datum'];
+                if ($query->num_rows == 0) {
+                  echo "<p>No projects yet.</p>";
+                } else {
+                  while ($result = $query->fetch_assoc()) {
+                    $naam = $result['naam'];
+                    $img = $result['projectimg'];
+                    $link = $result['projectlink'];
+                    $acountnaam = $result['acount'];
+                    $likes = $result['likes'];
+                    $downloads = $result['downloads'];
+                    $datum = $result['datum'];
 
-                  $imgBase64 = base64_encode($img);
+                    $imgBase64 = base64_encode($img);
 
-                  echo "<div class='item'>
-                <ul>
-                  <li>
-                    <img src='data:image/png  ;base64,$imgBase64' alt='' class='templatemo-item' />
-                  </li>
-                  <li>
-                    <h4>$naam</h4>
-                    <a href='./profile.php?$acountnaam'><span>$acountnaam</span></a>
-                  </li>
-                  <li>
-                    <h4>Date Added</h4>
-                    <span>$datum</span>
-                  </li>
-                  <li>
-                    <h4>Likes</h4>
-                    <span>$likes</span>
-                  </li>
-                </ul>
-              </div>";
+                    echo "<div class='item'>
+                            <ul>
+                              <li>
+                                <img src='data:image/png;base64,$imgBase64' alt='' class='templatemo-item' />
+                              </li>
+                              <li>
+                                <h4>$naam</h4>
+                                <a href='./profile.php?$acountnaam'><span>$acountnaam</span></a>
+                              </li>
+                              <li>
+                                <h4>Date Added</h4>
+                                <span>$datum</span>
+                              </li>
+                              <li>
+                                <h4>Likes</h4>
+                                <span>$likes</span>
+                              </li>
+                            </ul>
+                          </div>";
+                  }
                 }
-                ?>
-              <?php } else { ?>
-                <?= "<p class='loginmsg'>You need to login to see your projects --- <a href='./login.php'>Login -></a></p>" ?>
-              <?php } ?>
+              } else {
+                echo "<p class='loginmsg'>You need to login to see your projects --- <a href='./login.php'>Login -></a></p>";
+              }
+              ?>
 
             </div>
             <?php if ($_SESSION['loggedin'] == true) { ?>
