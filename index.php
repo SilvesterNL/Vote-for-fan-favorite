@@ -54,6 +54,7 @@ if (!isset($_SESSION['loggedin'])) {
             <ul class="nav">
               <li><a href="./index.php" class="active">Home</a></li>
               <li><a href="./browse.php">Browse</a></li>
+              <li><a href="./logout.php">Logout</a></li>
               <li>
                 <?php if ($_SESSION['loggedin'] == true) { ?>
                   <a href="./profile.php">Profile <img src="assets/images/profile.jpg" alt="" /></a>
@@ -152,7 +153,7 @@ if (!isset($_SESSION['loggedin'])) {
               <?php
               if ($_SESSION['loggedin'] == true) {
                 $username = $_SESSION['username'];
-                $SQL = "SELECT * FROM projects WHERE 'Userid' = '$username' LIMIT 4";
+                $SQL = "SELECT * FROM projects WHERE Userid = '$username' LIMIT 4";
                 $query = $con->query($SQL);
 
                 if (!$query) {
@@ -167,7 +168,7 @@ if (!isset($_SESSION['loggedin'])) {
                     $naam = $result['naam'];
                     $img = $result['projectimg'];
                     $link = $result['projectlink'];
-                    $acountnaam = $result['acount'];
+                    $acountnaam = $result['Userid'];
                     $likes = $result['likes'];
                     $downloads = $result['downloads'];
                     $datum = $result['datum'];
@@ -204,7 +205,7 @@ if (!isset($_SESSION['loggedin'])) {
             <?php if ($_SESSION['loggedin'] == true) { ?>
               <div class="col-lg-12">
                 <div class="main-button">
-                  <a href="profile.php?<?= $acountnaam ?>">View Your Library</a>
+                  <a href="profile.php">View Your Library</a>
                 </div>
               </div>
             <?php } else {

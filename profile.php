@@ -16,6 +16,33 @@ if ($_SESSION['loggedin'] == false) {
 
 $projectcount = 0;
 
+
+if (isset($_POST['submit'])) {
+  $projectName = $_POST['name'];
+  $projectLink = $_POST['link'];
+  $username = $_SESSION['username'];
+
+  $file = $_FILES['file-upload']['tmp_name'];
+
+  if ($file) {
+    $fileContent = file_get_contents($file);
+
+    $escapedContent = $con->real_escape_string($fileContent);
+
+    $sql = "INSERT INTO projects (naam, projectlink, Userid, projectimg) 
+            VALUES ('$projectName', '$projectLink', '$username', '$escapedContent')";
+
+    if ($con->query($sql) === TRUE) {
+      echo "Project uploaded successfully.";
+    } else {
+      echo "Error: " . $con->error;
+    }
+  } else {
+    echo "Error: No file uploaded.";
+  }
+}
+?>
+
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +98,7 @@ $projectcount = 0;
             <ul class="nav">
               <li><a href="index.php">Home</a></li>
               <li><a href="browse.php">Browse</a></li>
+              <li><a href="./logout.php">Logout</a></li>
               <li>
                 <a href="profile.php" class="active">Profile <img src="assets/images/profile.jpg" alt="" /></a>
               </li>
@@ -112,7 +140,7 @@ $projectcount = 0;
                 </div>
                 <div class="row">
                   <div class="form-container hidden">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                       <div class="inputbox">
                         <input required="required" type="text" name="name">
                         <span>Project Name</span>
@@ -126,7 +154,7 @@ $projectcount = 0;
                       <label for="file-upload" class="custom-file-upload" id="file">
                         <i class="fas fa-cloud-upload-alt"></i> Choose File
                       </label>
-                      <input id="file-upload" type="file">
+                      <input id="file-upload" type="file" name="file-upload">
                       <button name='submit'>
                         <span class="circle1"></span>
                         <span class="circle2"></span>
@@ -138,49 +166,51 @@ $projectcount = 0;
                     </form>
                   </div>
                 </div>
-                <?php
-                if ($_SESSION['loggedin'] == false) {
-                  header("Location: index.php");
-                } else {
-                  $sql = "SELECT * FROM projects WHERE Userid = '$username' ORDER BY downloads DESC LIMIT 4";
-                  $query = $con->query($sql);
-                  $foundProjects = false; // Flag variable to track if projects were found
+                <div>
+                  <?php
+                  if ($_SESSION['loggedin'] == false) {
+                    header("Location: index.php");
+                  } else {
+                    $sql = "SELECT * FROM projects WHERE Userid = '$username' ORDER BY downloads DESC LIMIT 4";
+                    $query = $con->query($sql);
+                    $foundProjects = false; // Flag variable to track if projects were found
 
-                  while ($result = $query->fetch_assoc()) {
-                    $naam = $result['naam'];
-                    $img = $result['projectimg'];
-                    $link = $result['projectlink'];
-                    $acountnaam = $result['Userid'];
-                    $likes = $result['likes'];
-                    $downloads = $result['downloads'];
+                    while ($result = $query->fetch_assoc()) {
+                      $naam = $result['naam'];
+                      $img = $result['projectimg'];
+                      $link = $result['projectlink'];
+                      $acountnaam = $result['Userid'];
+                      $likes = $result['likes'];
+                      $downloads = $result['downloads'];
 
-                    $imgBase64 = base64_encode($img);
+                      $imgBase64 = base64_encode($img);
 
-                    echo "<a href='$link' class='row'>
-                            <div class='col-lg-12'>
-                              <div class='clips'>
-                                <div class='row'>
-                                  <div class='col-lg-3 col-sm-6'>
-                                    <div class='item'>
-                                      <div class='thumb'>
-                                        <img src='data:image/png;base64,$imgBase64' alt='' style='border-radius: 23px' />
-                                      </div>
-                                      <div class='down-content'>
-                                        <h4>$naam</h4>
-                                        <span><i class='fa fa-eye'></i> $likes</span>
+                      echo "<a href='$link' class='row'>
+                              <div class='col-lg-12'>
+                                <div class='clips'>
+                                  <div class='row'>
+                                    <div class='col-lg-3 col-sm-6'>
+                                      <div class='item'>
+                                        <div class='thumb'>
+                                          <img src='data:image/png;base64,$imgBase64' alt='' style='border-radius: 23px' />
+                                        </div>
+                                        <div class='down-content'>
+                                          <h4>$naam</h4>
+                                          <span><i class='fa fa-eye'></i> $likes</span>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </a>";
+                            </a>";
 
-                    $foundProjects = true; // Set flag to true since projects were found
-                  }
+                      $foundProjects = true; // Set flag to true since projects were found
+                    }
 
-                  if (!$foundProjects) {
-                    echo "<a href='$link' class='col-lg-12'>
+                    if (!$foundProjects) {
+                      $link = ""; // Initialize $link variable with an empty string
+                      echo "<a href='$link' class='col-lg-12'>
                               <div class='clips'>
                                 <div class='row'>
                                   <div class='col-lg-12'>
@@ -188,11 +218,13 @@ $projectcount = 0;
                                   </div>
                                 </div>
                               </div>
-                          </a>";
+                            </a>";
+                    }
                   }
-                }
-                ?>
+                  ?>
 
+
+                </div>
               </div>
             </div>
           </div>

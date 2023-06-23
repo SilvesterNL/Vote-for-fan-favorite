@@ -46,6 +46,7 @@ require("./assets/require/require.php");
             <ul class="nav">
               <li><a href="index.php">Home</a></li>
               <li><a href="browse.php" class="active">Browse</a></li>
+              <li><a href="./logout.php">Logout</a></li>
               <li>
                 <?php if ($_SESSION['loggedin'] == true) { ?>
                   <a href="./profile.php">Profile <img src="assets/images/profile.jpg" alt="" /></a>
@@ -158,7 +159,7 @@ require("./assets/require/require.php");
 
                 </ul>
                 <div class="text-button">
-                  <a href="profile.php?<?= $acountnaam ?>">View All Projects</a>
+                  <a href="profile.php?">View All Projects</a>
                 </div>
               </div>
             </div>
