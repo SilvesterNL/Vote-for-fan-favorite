@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +10,7 @@ body,
 html {
   height: 100%;
   background: transparent;
+  font-family: 'Lato', sans-serif;
 }
 
 .form {
@@ -19,7 +22,7 @@ html {
   padding-bottom: 0.4em;
   background-color: #171717;
   border-radius: 25px;
-  transition: 0.4s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
 .form:hover {
@@ -51,7 +54,7 @@ html {
 .input-icon {
   height: 1.3em;
   width: 1.3em;
-  fill: white;
+  fill: #0055b8;
 }
 
 .input-field {
