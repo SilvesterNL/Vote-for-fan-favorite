@@ -1,18 +1,29 @@
+<?php
+require("./assets/require/require.php");
+
+$username = $_SESSION['username'];
+
+if ($_SESSION['loggedin'] == false) {
+  header("Location: index.php");
+} else {
+  $sql = "SELECT * FROM users WHERE username = '$username'";
+  $query = $con->query($sql);
+  $result = $query->fetch_assoc();
+  $naam = $result['$username'];
+  $naam = $result['$username'];
+  $naam = $result['$username'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
   <title>Vote For Fan Favorite</title>
-
-  <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
-  <!-- Additional CSS Files -->
   <link rel="stylesheet" href="assets/css/fontawesome.css" />
   <link rel="stylesheet" href="assets/css/templatemo-Cyborg-gaming.css" />
   <link rel="stylesheet" href="assets/css/owl.css" />
@@ -22,7 +33,6 @@
 </head>
 
 <body>
-  <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
       <span class="dot"></span>
