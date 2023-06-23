@@ -46,7 +46,9 @@ require("./assets/require/require.php");
             <ul class="nav">
               <li><a href="index.php">Home</a></li>
               <li><a href="browse.php" class="active">Browse</a></li>
+                            <?php if ($_SESSION['loggedin'] == true) { ?>
               <li><a href="./logout.php">Logout</a></li>
+              <?Php } ?>
               <li>
                 <?php if ($_SESSION['loggedin'] == true) { ?>
                   <a href="./profile.php">Profile <img src="assets/images/profile.jpg" alt="" /></a>

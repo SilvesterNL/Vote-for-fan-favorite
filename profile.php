@@ -98,7 +98,9 @@ if (isset($_POST['submit'])) {
             <ul class="nav">
               <li><a href="index.php">Home</a></li>
               <li><a href="browse.php">Browse</a></li>
+                            <?php if ($_SESSION['loggedin'] == true) { ?>
               <li><a href="./logout.php">Logout</a></li>
+              <?Php } ?>
               <li>
                 <a href="profile.php" class="active">Profile <img src="assets/images/profile.jpg" alt="" /></a>
               </li>

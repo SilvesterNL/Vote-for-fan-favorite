@@ -54,7 +54,9 @@ if (!isset($_SESSION['loggedin'])) {
             <ul class="nav">
               <li><a href="./index.php" class="active">Home</a></li>
               <li><a href="./browse.php">Browse</a></li>
+              <?php if ($_SESSION['loggedin'] == true) { ?>
               <li><a href="./logout.php">Logout</a></li>
+              <?Php } ?>
               <li>
                 <?php if ($_SESSION['loggedin'] == true) { ?>
                   <a href="./profile.php">Profile <img src="assets/images/profile.jpg" alt="" /></a>
@@ -242,11 +244,6 @@ if (!isset($_SESSION['loggedin'])) {
   <script src="assets/js/tabs.js"></script>
   <script src="assets/js/popup.js"></script>
   <script src="assets/js/custom.js"></script>
-  <script>
-function like(id) {
-  
-}
-</script>
 </body>
 
 </html>
