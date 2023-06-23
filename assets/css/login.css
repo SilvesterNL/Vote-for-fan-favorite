@@ -20,7 +20,7 @@ html {
   padding-left: 2em;
   padding-right: 2em;
   padding-bottom: 0.4em;
-  background-color: #171717;
+  background-color: #27292a;
   border-radius: 25px;
   transition: 0.1s ease-in-out;
 }
@@ -32,9 +32,9 @@ html {
 
 #heading {
   text-align: center;
-  margin: 2em;
-  color: rgb(255, 255, 255);
-  font-size: 1.2em;
+  margin: 1.3em;
+  color: #ff00a6;
+  font-size: 1.6em;
 }
 
 .field {
@@ -47,14 +47,14 @@ html {
   border: none;
   outline: none;
   color: white;
-  background-color: #171717;
+  background-color: #27292a;  
   box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
 }
 
 .input-icon {
   height: 1.3em;
   width: 1.3em;
-  fill: #0055b8;
+  fill: #ff00a6;
 }
 
 .input-field {
@@ -81,13 +81,14 @@ html {
   border: none;
   outline: none;
   transition: 0.4s ease-in-out;
-  background-color: #252525;
+  cursor: pointer;
+  background-color: #363a3c;
   color: white;
   width: 380px;
 }
 
 .button1:hover {
-  background-color: black;
+  background-color: rgb(50, 45, 45);
   color: white;
 }
 
@@ -99,17 +100,18 @@ html {
   border: none;
   outline: none;
   transition: 0.4s ease-in-out;
-  background-color: #252525;
+  background-color: #363a3c;
   color: white;
   width: 380px;
   margin-top: 10px;
   text-align: center;
   font-family: sans-serif;
   font-size: 13px;
+  cursor: pointer;
 }
 
 .button2:hover {
-  background-color: black;
+  background-color: rgb(50, 45, 45);
   color: white;
 }
 
@@ -120,7 +122,7 @@ html {
   border: none;
   outline: none;
   transition: 0.4s ease-in-out;
-  background-color: #252525;
+  background-color: #363a3c;
   color: white;
   text-align: center;
   font-family: sans-serif;
@@ -129,7 +131,7 @@ html {
 }
 
 .button3:hover {
-  background-color: red;
+  background-color: rgb(50, 45, 45);
   color: white;
 }
 
