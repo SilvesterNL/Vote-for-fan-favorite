@@ -20,7 +20,7 @@ if (!isset($_SESSION['loggedin'])) {
   <title>Vote For Fan Favorite</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/fontawesome.css" />
-  <link rel="stylesheet" href="assets/css/templatemo-Cyborg-gaming.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/owl.css" />
   <link rel="stylesheet" href="assets/css/animate.css" />
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
@@ -110,12 +110,14 @@ if (!isset($_SESSION['loggedin'])) {
                     echo "<p>No projects yet.</p>";
                   } else {
                     while ($result = $query->fetch_assoc()) {
+                      $projectid = $result['id'];
                       $naam = $result['naam'];
                       $img = $result['projectimg'];
                       $link = $result['projectlink'];
                       $acountnaam = $result['Userid'];
                       $likes = $result['likes'];
                       $downloads = $result['downloads'];
+                      
 
                       $imgBase64 = base64_encode($img);
 
@@ -124,8 +126,8 @@ if (!isset($_SESSION['loggedin'])) {
                                 <img src='data:image/png;base64,$imgBase64' alt=''/>
                                 <h4>$naam<br /><span>$acountnaam</span></h4>
                                 <ul>
-                                  <li><i class='fa fa-heart'></i> $likes</li>
-                                  <li><i class='fa fa-download'></i> $downloads</li>
+                                  <li><i onclick='like($projectid)' class='fa fa-heart'></i> $likes</li>
+                                  <li><i class='fa fa-eye'></i> $downloads</li>
                                 </ul>
                               </div>
                             </a>";
@@ -240,6 +242,11 @@ if (!isset($_SESSION['loggedin'])) {
   <script src="assets/js/tabs.js"></script>
   <script src="assets/js/popup.js"></script>
   <script src="assets/js/custom.js"></script>
+  <script>
+function like(id) {
+  
+}
+</script>
 </body>
 
 </html>

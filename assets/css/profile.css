@@ -166,3 +166,8 @@ button:hover span:not(:nth-child(6)) {
     margin-top: 20px;
   }
 }
+
+.flex {
+  display: flex;
+  margin-top: 20px
+}

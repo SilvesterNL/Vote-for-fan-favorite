@@ -54,7 +54,7 @@ html {
 .input-icon {
   height: 1.3em;
   width: 1.3em;
-  fill: #0055b8;
+  fill: #ff00a6;
 }
 
 .input-field {
@@ -138,7 +138,7 @@ html {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("../images/456536.jpg") no-repeat center center fixed;
+  background-color: #1f2122;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

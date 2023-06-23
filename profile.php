@@ -9,9 +9,8 @@ if ($_SESSION['loggedin'] == false) {
   $sql = "SELECT * FROM users WHERE username = '$username'";
   $query = $con->query($sql);
   $result = $query->fetch_assoc();
-  $naam = $result['username'];
-  $naam = $result['username'];
-  $naam = $result['username'];
+  $naam = $_SESSION['username'];
+
 }
 
 $projectcount = 0;
@@ -40,6 +39,7 @@ if (isset($_POST['submit'])) {
   } else {
     echo "Error: No file uploaded.";
   }
+  header("Location: profile.php");
 }
 ?>
 
@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
   <title>Vote For Fan Favorite</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/fontawesome.css" />
-  <link rel="stylesheet" href="assets/css/templatemo-Cyborg-gaming.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/owl.css" />
   <link rel="stylesheet" href="assets/css/animate.css" />
   <link rel="stylesheet" href="./assets/css/profile.css ">
@@ -154,7 +154,7 @@ if (isset($_POST['submit'])) {
                       <label for="file-upload" class="custom-file-upload" id="file">
                         <i class="fas fa-cloud-upload-alt"></i> Choose File
                       </label>
-                      <input id="file-upload" type="file" name="file-upload">
+                      <input accept required id="file-upload" type="file" accept="image/*" name="file-upload">
                       <button name='submit'>
                         <span class="circle1"></span>
                         <span class="circle2"></span>
@@ -167,11 +167,19 @@ if (isset($_POST['submit'])) {
                   </div>
                 </div>
                 <div>
+                <div class="heading-section">
+                <h4><em>Your Recent</em> Projects</h4>
+</div>
+                <div class="row">
+                <div class='col-lg-12'>
+                                <div class='clips'>
+                                    <div class='col-lg-3 flex col-sm-6'>
+
                   <?php
                   if ($_SESSION['loggedin'] == false) {
                     header("Location: index.php");
                   } else {
-                    $sql = "SELECT * FROM projects WHERE Userid = '$username' ORDER BY downloads DESC LIMIT 4";
+                    $sql = "SELECT * FROM projects WHERE Userid = '$username' ORDER BY datum DESC LIMIT 3";
                     $query = $con->query($sql);
                     $foundProjects = false; // Flag variable to track if projects were found
 
@@ -185,12 +193,8 @@ if (isset($_POST['submit'])) {
 
                       $imgBase64 = base64_encode($img);
 
-                      echo "<a href='$link' class='row'>
-                              <div class='col-lg-12'>
-                                <div class='clips'>
-                                  <div class='row'>
-                                    <div class='col-lg-3 col-sm-6'>
-                                      <div class='item'>
+                      echo "
+                                      <a class='item' href='$link'>
                                         <div class='thumb'>
                                           <img src='data:image/png;base64,$imgBase64' alt='' style='border-radius: 23px' />
                                         </div>
@@ -198,11 +202,7 @@ if (isset($_POST['submit'])) {
                                           <h4>$naam</h4>
                                           <span><i class='fa fa-eye'></i> $likes</span>
                                         </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+
                             </a>";
 
                       $foundProjects = true; // Set flag to true since projects were found
@@ -222,8 +222,11 @@ if (isset($_POST['submit'])) {
                     }
                   }
                   ?>
-
-
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              </div>
                 </div>
               </div>
             </div>

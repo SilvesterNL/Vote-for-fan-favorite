@@ -11,7 +11,7 @@ require("./assets/require/require.php");
   <title>Vote For Fan Favorite</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/fontawesome.css" />
-  <link rel="stylesheet" href="assets/css/templatemo-Cyborg-gaming.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/owl.css" />
   <link rel="stylesheet" href="assets/css/animate.css" />
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
@@ -72,7 +72,7 @@ require("./assets/require/require.php");
             <div class="col-lg-8">
               <div class="featured-games header-text">
                 <div class="heading-section">
-                  <h4><em>Most Downloaded</em> Projects</h4>
+                  <h4><em>Most Viewed</em> Projects</h4>
                   <div class="row">
                     <?php
                     $SQL = "SELECT * FROM projects ORDER BY downloads DESC LIMIT 4";
@@ -102,7 +102,7 @@ require("./assets/require/require.php");
                                   <h4>$naam<br /><span>$acountnaam</span></h4>
                                   <ul>
                                     <li><i class='fa fa-heart' style='color: #ff00a6;'></i> $likes</li>
-                                    <li><i class='fa fa-download'></i> $downloads</li>
+                                    <li><i class='fa fa-eye'></i> $downloads</li>
                                   </ul>
                                 </div>
                               </a>";
@@ -147,9 +147,9 @@ require("./assets/require/require.php");
                               <h4>$naam</h4>
                               <h6>$acountnaam</h6>
                               <span><i class='fa fa-heart' style='color: #ff00a6'></i>$likes</span>
-                              <span><i class='fa fa-download' style='color: #ff00a6'></i>$downloads</span>
+                              <span><i class='fa fa-eye' style='color: #ff00a6'></i>$downloads</span>
                               <div class='download'>
-                                <a href='$link'><i class='fa fa-download'></i></a>
+                                <a href='$link'><i class='fa fa-eye'></i></a>
                               </div>
                             </li>";
                     }
